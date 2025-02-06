@@ -70,8 +70,6 @@ sayHello();
   ```
 
 ---
-
-### Key Takeaways from Your Code:
 1. **`var` Example**:
    - `i` is accessible outside the loop (prints `5`).
    - No error occurs because `var` is function-scoped.
