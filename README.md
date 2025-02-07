@@ -512,3 +512,95 @@ Here, the `Teacher` class is **imported** from `teacher.js` and used to create a
 ---
 
 Using modules improves **code organization, reusability, and maintainability**. 
+
+### **Named and Default Exports in JavaScript**  
+
+JavaScript modules support **named exports** and **default exports**, allowing flexible ways to import and organize code.  
+
+---
+
+### **1. Default vs. Named Exports**  
+
+- **Default Export**: Used when a module exports a single main value.  
+- **Named Export**: Allows exporting multiple values from a module.  
+
+#### **Syntax Differences:**  
+```js
+// Default Export (one per file)
+export default class Teacher {}
+
+// Named Export (multiple allowed)
+export function promote() {}
+export class Person {}
+```
+
+---
+
+### **2. Example Implementation**  
+
+#### **`person.js` (Named Export for `Person` Class)**  
+```js
+export class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  walk() {
+    console.log("walk");
+  }
+}
+```
+Here, `Person` is **named exported**, meaning it must be imported using `{}`.  
+
+---
+
+#### **`teacher.js` (Default Export for `Teacher`, Named Export for `promote`)**  
+```js
+import { Person } from "./person"; // Named import
+
+export function promote() {} // Named export
+
+export default class Teacher extends Person { // Default export
+  constructor(name, degree) {
+    super(name);
+    this.degree = degree;
+  }
+
+  teach() {
+    console.log("teach");
+  }
+}
+```
+Here:  
+- `Teacher` is **default exported** (imported without `{}`).  
+- `promote` is **named exported** (must be imported with `{}`).
+
+---
+
+#### **`index.js` (Importing Modules)**  
+```js
+import Teacher, { promote } from "./teacher"; // Importing default and named exports
+
+const teacher = new Teacher("Muntasir", "MSc");
+teacher.teach(); // Output: teach
+
+promote(); // Calls the promote function
+```
+- `Teacher` is **default imported** (no `{}` needed).  
+- `promote` is **named imported** (must use `{}`).
+
+---
+
+### **3. Real-World Example (React)**  
+```js
+import React, { Component } from "react";
+```
+- `React` is **default imported**.  
+- `Component` is **named imported** from `react`.  
+
+---
+
+### **Key Takeaways**  
+✅ Use **default exports** for main modules.  
+✅ Use **named exports** for utilities or multiple exports.  
+✅ **Mixing both** in a module is allowed.  
