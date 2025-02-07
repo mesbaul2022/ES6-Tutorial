@@ -84,3 +84,65 @@ sayHello();
 1. Use `const` by default for variables that don’t need reassignment.
 2. Use `let` for variables that need reassignment (e.g., loop counters).
 3. Avoid `var` in modern code to prevent unintended scope issues.
+
+
+### Topic 1: **Object Method Definition and Invocation**  
+**Code**:  
+```javascript  
+const person = {  
+  name: 'Mosh',  
+  walk() {},  
+  talk() {}  
+};  
+person.talk();  
+```  
+**Discussion**:  
+- Objects can store **methods** (functions as properties).  
+- Methods are invoked using dot notation (`person.talk()`).  
+- **Key Point**: Methods are defined with shorthand syntax in ES6 (`walk() {}` instead of `walk: function() {}`).  
+
+---
+
+### Topic 2: **Modifying Properties of a `const` Object**  
+**Code**:  
+```javascript  
+const person = { name: 'Mosh' };  
+person.name = ''; // Valid  
+```  
+**Discussion**:  
+- `const` prevents **reassignment** of the variable (`person = {}` would fail).  
+- **Object properties** can still be modified even if the object is `const`.  
+- **Key Point**: `const` ensures the reference to the object stays the same, not its contents.  
+
+---
+
+### Topic 3: **Dynamic Property Access Using Bracket Notation**  
+**Code**:  
+```javascript  
+const targetMember = 'name';  
+person[targetMember] = 'Muntasir';  
+```  
+**Discussion**:  
+- Use **bracket notation** to dynamically access/modify properties using variables.  
+- Example: `targetMember` holds the property name (`'name'`), so `person[targetMember]` targets `person.name`.  
+- **Key Point**: Useful when the property name is determined at runtime.  
+
+---
+
+### Topic 4: **Common Pitfall with Bracket Notation**  
+**Code**:  
+```javascript  
+person[targetMember.value] = 'Muntasir';  
+```  
+**Discussion**:  
+- If `targetMember` is a string (`'name'`), `targetMember.value` returns `undefined` (since strings don’t have a `value` property).  
+- **Fix**: Use `person[targetMember]` directly if `targetMember` holds the property name.  
+- **Key Point**: Ensure the variable in bracket notation correctly references the intended property.  
+
+---
+
+### Summary of Key Rules:  
+1. Use **dot notation** for known property names (`person.name`).  
+2. Use **bracket notation** for dynamic property names (`person[propertyNameVariable]`).  
+3. `const` objects are mutable (properties can change), but the variable itself cannot be reassigned.  
+
