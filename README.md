@@ -86,63 +86,85 @@ sayHello();
 3. Avoid `var` in modern code to prevent unintended scope issues.
 
 
-### Topic 1: **Object Method Definition and Invocation**  
-**Code**:  
-```javascript  
-const person = {  
-  name: 'Mosh',  
-  walk() {},  
-  talk() {}  
-};  
-person.talk();  
-```  
-**Discussion**:  
-- Objects can store **methods** (functions as properties).  
-- Methods are invoked using dot notation (`person.talk()`).  
-- **Key Point**: Methods are defined with shorthand syntax in ES6 (`walk() {}` instead of `walk: function() {}`).  
+Here are the notes with suitable titles and short discussions for each topic based on your code:  
 
 ---
 
-### Topic 2: **Modifying Properties of a `const` Object**  
-**Code**:  
-```javascript  
-const person = { name: 'Mosh' };  
-person.name = ''; // Valid  
-```  
-**Discussion**:  
-- `const` prevents **reassignment** of the variable (`person = {}` would fail).  
-- **Object properties** can still be modified even if the object is `const`.  
-- **Key Point**: `const` ensures the reference to the object stays the same, not its contents.  
+### 1. **Object Literals in JavaScript**  
+In JavaScript, objects can be created using object literals, which provide a simple way to define key-value pairs.  
+
+**Example:**  
+```js
+const person = {
+  name: 'Muntasir',
+  walk() {},
+  talk() {}
+};
+```
 
 ---
 
-### Topic 3: **Dynamic Property Access Using Bracket Notation**  
-**Code**:  
-```javascript  
-const targetMember = 'name';  
-person[targetMember] = 'Muntasir';  
-```  
-**Discussion**:  
-- Use **bracket notation** to dynamically access/modify properties using variables.  
-- Example: `targetMember` holds the property name (`'name'`), so `person[targetMember]` targets `person.name`.  
-- **Key Point**: Useful when the property name is determined at runtime.  
+### 2. **Accessing Object Properties**  
+Object properties can be accessed using dot notation or bracket notation.  
+
+**Example:**  
+```js
+person.talk(); // Dot notation
+person.name = ''; // Modifying property using dot notation
+```
 
 ---
 
-### Topic 4: **Common Pitfall with Bracket Notation**  
-**Code**:  
-```javascript  
-person[targetMember.value] = 'Muntasir';  
-```  
-**Discussion**:  
-- If `targetMember` is a string (`'name'`), `targetMember.value` returns `undefined` (since strings don’t have a `value` property).  
-- **Fix**: Use `person[targetMember]` directly if `targetMember` holds the property name.  
-- **Key Point**: Ensure the variable in bracket notation correctly references the intended property.  
+### 3. **Dynamic Property Access**  
+Bracket notation allows dynamic access to object properties using variables.  
+
+**Example:**  
+```js
+const targetMember = 'name';
+person[targetMember] = 'Muntasir';
+```
+Here, `targetMember` holds the property name, which is used dynamically to assign a value.  
+
+---
+Here are the notes with suitable titles and short discussions based on your code:  
 
 ---
 
-### Summary of Key Rules:  
-1. Use **dot notation** for known property names (`person.name`).  
-2. Use **bracket notation** for dynamic property names (`person[propertyNameVariable]`).  
-3. `const` objects are mutable (properties can change), but the variable itself cannot be reassigned.  
+### 1. **The `this` Keyword in JavaScript**  
+In JavaScript, `this` refers to the object that is calling the function. When a method is called within an object, `this` refers to that object.  
 
+**Example:**  
+```js
+const person = {
+  name: "Mosh",
+  walk() {
+    console.log(this); // Refers to the 'person' object
+  }
+};
+
+person.walk(); // Logs the 'person' object
+```
+
+---
+
+### 2. **Losing `this` in Function Assignment**  
+When a method is assigned to a variable, `this` may lose its reference to the original object.  
+
+**Example:**  
+```js
+const walk = person.walk;
+walk(); // `this` is now undefined or refers to the global object in non-strict mode
+```
+
+---
+
+### 3. **Binding `this` with `.bind()`**  
+The `.bind()` method is used to explicitly bind `this` to a specific object, ensuring it always refers to that object when the function is called.  
+
+**Example:**  
+```js
+const walk = person.walk.bind(person);
+walk(); // Ensures 'this' refers to 'person'
+```
+
+---
